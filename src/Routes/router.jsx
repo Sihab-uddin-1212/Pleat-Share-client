@@ -5,6 +5,8 @@ import Home from '../pages/Home';
 import Register from '../verify/Register';
 import Login from '../verify/Login';
 import AllFood from '../pages/AllFood';
+import FoodDetails from '../pages/FoodDetails';
+import AddFood from '../pages/AddFood';
  
  const router = createBrowserRouter([
   {
@@ -27,6 +29,14 @@ import AllFood from '../pages/AllFood';
             path:"/all-foods",
             element:<AllFood></AllFood>
             //from here no privet routes
+        },
+        {
+            path:`/food-details/:id`,
+            element:<FoodDetails></FoodDetails>
+        },
+        {
+            path:'addfood',
+            element:<AddFood></AddFood>
         }
     ]
   },

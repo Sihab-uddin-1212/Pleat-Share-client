@@ -6,7 +6,7 @@ import FoodCard from '../component/FoodCard';
 const AllFood = () => {
 
     const [foods,setFoods] = useState()
-    console.log(foods)
+    // console.log(foods)
 
     useEffect(()=>{
         axios('http://localhost:3000/foods')

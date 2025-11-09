@@ -122,20 +122,20 @@ const Navbar = () => {
                 <li className="text-xs">{user.email}</li>
               </div>
               <li className="mt-3">
-                <Link to={"/profile"}>
-                  <FaUser /> Profile
+                <Link to={"/addfood"}>
+                  <FaUser /> Add Food
                 </Link>
               </li>
 
               <li>
                 <Link to={"/my-models"}>
-                  My Models
+                   Manage my food
                 </Link>
               </li>
 
               <li >
                 <Link to={"/my-downloads"}>
-                 My Downloads
+                 My  Food Request
                 </Link>
               </li>
 
@@ -145,12 +145,12 @@ const Navbar = () => {
            defaultChecked={localStorage.getItem('theme') === "dark"}
            className="toggle"/> */}
               
-              <li>
+              {/* <li>
                 <a>
                   {" "}
                   <FaGear /> Settings
                 </a>
-              </li>
+              </li> */}
               <li>
                 <button
                   onClick={signOutUser}

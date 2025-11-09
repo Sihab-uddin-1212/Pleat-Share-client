@@ -31,7 +31,7 @@ const FoodCard = ({food}) => {
               {likes}
             </span> */}
           </div>
-          <Link to={`/model-details/${_id}`} className="btn rounded-full bg-linear-to-r from-pink-500 to-red-600 hover:from-red-600 hover:to-pink-500 text-white w-full btn-sm">View</Link>
+          <Link to={`/food-details/${_id}`} className="btn rounded-full bg-linear-to-r from-pink-500 to-red-600 hover:from-red-600 hover:to-pink-500 text-white w-full btn-sm">View</Link>
         </div>
       </div>
     </div>
