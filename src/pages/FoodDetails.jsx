@@ -1,19 +1,24 @@
 import axios from "axios";
 import React, { use, useEffect, useRef, useState } from "react";
 import { BiCalendar, BiMapPin, BiUser } from "react-icons/bi";
-import { FaUtensils } from "react-icons/fa";
+import { FaEdit, FaTrashAlt, FaUtensils } from "react-icons/fa";
 import { useParams } from "react-router";
 import { motion } from "framer-motion";
 import { AuthContext } from "../Auth/AuthContext";
+import { toast } from "react-toastify";
+ 
 
 const FoodDetails = () => {
     const {user} = use(AuthContext)
-    console.log(user)
+    // console.log(user)
   const { id } = useParams();
   const [food, setFood] = useState();
+  const [orderList,setOrderList] = useState()
   const [loading, setLoading] = useState(true);
   const modalRef = useRef(null);
-  console.log({ food });
+
+//   console.log(food);
+console.log(orderList)
 
   useEffect(() => {
     axios(`http://localhost:3000/foods/${id}`).then((data) => {
@@ -26,6 +31,18 @@ const FoodDetails = () => {
     modalRef.current.showModal();
   };
 
+  useEffect(()=>{
+    axios(`http://localhost:3000/order-list?foodId=${id}`)
+    .then(data=>{
+      
+        // const userEmailData = data?.data.filter(list =>list.donar_email !== user?.email )
+        setOrderList(data?.data)
+        // console.log(userEmailData)
+    })
+  },[])
+
+ 
+
   const hendelRequest = (e) =>{
     e.preventDefault()
     const details ={
@@ -35,16 +52,40 @@ const FoodDetails = () => {
         user_name:user.displayName,
         user_email:user.email,
         photoURL:user.photoURL,
-        foodId:food._id,
-        donar_email:food.email
+        foodId:food?._id,
+        donar_email:food?.email
       
     }
-    console.log(details)
+    // console.log(details)
+
+    fetch('http://localhost:3000/order', {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(details)
+       })
+       .then(res => res.json())
+       .then(data=> {
+         toast.success("Successfully added!")
+         console.log(data)
+       })
+       .catch(err => {
+         console.log(err)
+       })
 
 
 
  modalRef.current.close();;
   }
+
+//   const hendelAccept = () =>{
+//      fetch(``)
+//   }
+  
+
+
+
 
   if (loading) {
     return <p>Loding</p>;
@@ -122,19 +163,19 @@ const FoodDetails = () => {
             </div>
 
             {/* Request Button */}
-            <motion.button
+           
+            {/* Open the modal using document.getElementById('ID').showModal() method */}
+            <div>
+                  <motion.button
+               onClick={hendleModalRequest}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full mt-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-2xl transition-all duration-300"
+              className="btn w-full mt-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-2xl transition-all duration-300"
               // onClick={handleRequestFood}
             >
               Request Food
             </motion.button>
-            {/* Open the modal using document.getElementById('ID').showModal() method */}
-            <div>
-              <button className="btn" onClick={hendleModalRequest}>
-                open modal
-              </button>
+              
               <dialog
                 ref={modalRef}
                 className="modal modal-bottom sm:modal-middle"
@@ -177,6 +218,7 @@ const FoodDetails = () => {
                       />
                     </div>
                     <button className="btn">Request submit</button>
+                   
 
                   </form>
                   <div className="modal-action">
@@ -185,12 +227,161 @@ const FoodDetails = () => {
                       
                     </form>
                   </div>
+                
                 </div>
               </dialog>
             </div>
+            
           </div>
         </div>
       </motion.div>
+      <div>
+        {user?.email == food?.email ?
+              <div className="overflow-x-auto bg-white rounded-2xl shadow-lg mt-6">
+      <table className="table w-full">
+        <thead className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white">
+          <tr>
+            <th>#</th>
+            <th>Food</th>
+            <th>Donator</th>
+            <th>Quantity</th>
+            <th>Pickup Location</th>
+            <th>Expire Date</th>
+            <th>Status</th>
+            <th className="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orderList.map((order, index) => (
+            <tr
+              key={order._id}
+              className="hover:bg-purple-50 transition duration-200"
+            >
+              <td>{index + 1}</td>
+
+              {/* Food info */}
+              <td>
+                <div className="flex items-center gap-3">
+                  <div className="avatar">
+                    <div className="mask mask-squircle w-12 h-12">
+                      <img
+                        src={order.photoURL}
+                        alt={order.food_name}
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-semibold">{order.food_name}</div>
+                    <div className="text-xs text-gray-500">
+                      {order.food_quantity} items
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              {/* Donator */}
+              <td>
+                <div className="flex items-center gap-3">
+                  <div className="avatar">
+                    <div className="mask mask-circle w-10 h-10">
+                      <img
+                        src={order.donator_image}
+                        alt={order.donator_name}
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-700">
+                      {order.donator_name}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {order.donar_email}
+                    </p>
+                  </div>
+                </div>
+              </td>
+
+              <td className="text-gray-700">{order.food_quantity}</td>
+              <td className="text-gray-700">{order.location}</td>
+
+              <td className="text-gray-600">
+                {new Date().toLocaleDateString("en-BD", {
+                  dateStyle: "medium",
+                })}
+              </td>
+
+              <td>
+                <span
+                  className={`badge px-3 py-2 text-white ${
+                    order.status === "available"
+                      ? "bg-green-500"
+                      : order.status === "pending"
+                      ? "bg-yellow-500"
+                      : "bg-red-500"
+                  }`}
+                >
+                  {order.status || "pending"}
+                </span>
+              </td>
+
+              {/* Actions */}
+              <td className="flex justify-center gap-2">
+                <button className="btn btn-sm bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg flex items-center gap-1">
+                  Accept
+                </button>
+                <button className="btn btn-sm bg-rose-500 hover:bg-rose-600 text-white rounded-lg flex items-center gap-1">
+                  Reject
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Mobile View */}
+      <div className="block sm:hidden">
+        {orderList.map((order) => (
+          <div
+            key={order._id}
+            className="border rounded-xl p-4 my-3 shadow-sm bg-gray-50"
+          >
+            <div className="flex gap-3 items-center mb-3">
+              <img
+                src={order.photoURL}
+                alt={order.food_name}
+                className="w-16 h-16 object-cover rounded-lg"
+              />
+              <div>
+                <h3 className="font-semibold">{order.food_name}</h3>
+                <p className="text-xs text-gray-500">
+                  {order.food_quantity} items
+                </p>
+              </div>
+            </div>
+            <p className="text-sm text-gray-600 mb-1">
+              <b>Donator:</b> {order.donator_name}
+            </p>
+            <p className="text-sm text-gray-600 mb-1">
+              <b>Location:</b> {order.location}
+            </p>
+            <div className="flex justify-between mt-3">
+              <button className="btn btn-xs bg-indigo-500 text-white rounded-lg">
+                Update
+              </button>
+              <button className="btn btn-xs bg-rose-500 text-white rounded-lg">
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>: <></>
+        }
+      </div>
+       
+      
     </div>
   );
 };

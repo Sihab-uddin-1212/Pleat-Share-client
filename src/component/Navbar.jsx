@@ -128,7 +128,7 @@ const Navbar = () => {
               </li>
 
               <li>
-                <Link to={"/my-models"}>
+                <Link to={'/my-food'}>
                    Manage my food
                 </Link>
               </li>
