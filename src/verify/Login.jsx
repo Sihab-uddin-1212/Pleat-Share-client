@@ -12,6 +12,7 @@ const Login = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  
 
   const handleLogIn = (event) => {
     event.preventDefault();
@@ -22,7 +23,7 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         event.target.reset();
-        navigate(location.state?.from || "/");
+        navigate(location.state || "/");
       })
       .catch((error) => console.error(error));
   };
@@ -31,7 +32,7 @@ const Login = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result.user);
-        navigate(location.state?.from || "/");
+        navigate(location.state || "/");
       })
       .catch((error) => console.error(error));
   };

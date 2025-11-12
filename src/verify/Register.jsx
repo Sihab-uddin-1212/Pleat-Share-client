@@ -3,7 +3,7 @@
 
 import { use } from "react";
 import { AuthContext } from "../Auth/AuthContext";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { FaGoogle } from "react-icons/fa";
 
@@ -12,6 +12,13 @@ const Register = () => {
        const { createUser, updateUserProfile, signInWithGoogle } = use(AuthContext);
   const navigate = useNavigate();
 
+    const location = useLocation();
+     const from =  "/";
+
+   
+   
+ 
+
   const handleRegister = (event) => {
     event.preventDefault();
     const displayName = event.target.displayName.value;
@@ -19,17 +26,47 @@ const Register = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    // toast.loading("Creating user...", { id: "create-user" });
+    const regExp =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^()\-_=+])[A-Za-z\d@$!%*?&#^()\-_=+]{8,}$/;
+
+    if (!regExp.test(password)) {
+      toast.error(
+        "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character"
+      );
+      return;
+    }
 
     createUser(email, password)
       .then((result) => {
         console.log(result.user);
         updateUserProfile(displayName, photoURL);
+        navigate(from)
         toast.success("User created successfully!", { id: "create-user" });
       })
-      .catch((error) => {
-        console.log(error);
-        toast.error(error.message, { id: "create-user" });
+      .catch((e) => {
+         if (e.code === "auth/email-already-in-use") {
+          toast.error(
+            "User already exists in the database."  
+          );
+        } else if (e.code === "auth/weak-password") {
+          toast.error(" at least 6  digit or more");
+        } else if (e.code === "auth/invalid-email") {
+          toast.error("Invalid email format. Please check your email.");
+        } else if (e.code === "auth/user-not-found") {
+          toast.error("User not found. Please sign up first.");
+        } else if (e.code === "auth/wrong-password") {
+          toast.error("Wrong password. Please try again.");
+        } else if (e.code === "auth/user-disabled") {
+          toast.error("This user account has been disabled.");
+        } else if (e.code === "auth/too-many-requests") {
+          toast.error("Too many attempts. Please try again later.");
+        } else if (e.code === "auth/operation-not-allowed") {
+          toast.error("Operation not allowed. Please contact support.");
+        } else if (e.code === "auth/network-request-failed") {
+          toast.error("Network error. Please check your connection.");
+        } else {
+          toast.error(e.message || "An unexpected error occurred.");
+        };;
       });
   };
 
@@ -39,7 +76,7 @@ const Register = () => {
       .then((result) => {
         toast.success("User created successfully!", { id: "create-user" });
         console.log(result.user);
-        navigate("/");
+        navigate(from);
       })
       .catch((error) => {
         console.log(error);

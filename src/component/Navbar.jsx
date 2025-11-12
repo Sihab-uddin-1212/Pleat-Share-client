@@ -68,11 +68,7 @@ const Navbar = () => {
               <IoLogoModelS /> Available Foods
             </NavLink>
           </li>
-          <li>
-            <NavLink to={"/add-model"}>
-             <ImBoxAdd /> Add model
-            </NavLink>
-          </li>
+           
 
           {/* <Link
             to={"/login"}
@@ -134,7 +130,7 @@ const Navbar = () => {
               </li>
 
               <li >
-                <Link to={"/my-downloads"}>
+                <Link to={"/my-request"}>
                  My  Food Request
                 </Link>
               </li>

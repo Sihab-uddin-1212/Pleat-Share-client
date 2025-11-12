@@ -9,9 +9,11 @@ const AllFood = () => {
     // console.log(foods)
 
     useEffect(()=>{
-        axios('http://localhost:3000/foods')
+        axios(`http://localhost:3000/foods?status=${"available"}`)
         .then(data => {
-            setFoods(data.data)
+            const shortData = data?.data.sort((a,b)=>b.food_quantity-a.food_quantity)
+            setFoods(shortData)
+            console.log(shortData)
         })
     },[])
 

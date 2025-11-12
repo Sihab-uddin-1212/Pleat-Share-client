@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 const FoodDetails = () => {
     const {user} = use(AuthContext)
-    // console.log(user)
+    console.log(user)
   const { id } = useParams();
   const [food, setFood] = useState();
   const [orderList,setOrderList] = useState()
@@ -18,9 +18,11 @@ const FoodDetails = () => {
   const modalRef = useRef(null);
 
 //   console.log(food);
-console.log(orderList)
+// console.log(orderList)
 
   useEffect(() => {
+  
+
     axios(`http://localhost:3000/foods/${id}`).then((data) => {
       setFood(data?.data);
       setLoading(false);
@@ -53,7 +55,8 @@ console.log(orderList)
         user_email:user.email,
         photoURL:user.photoURL,
         foodId:food?._id,
-        donar_email:food?.email
+        donar_email:food?.email,
+        status:'pending'
       
     }
     // console.log(details)
@@ -79,16 +82,56 @@ console.log(orderList)
  modalRef.current.close();;
   }
 
-//   const hendelAccept = () =>{
-//      fetch(``)
-//   }
+
+
+ const hendelAccept = (_id) => {
+  const details = { status: "accepted",foodId:id };
+   
+
+  fetch(`http://localhost:3000/accept/${_id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(details),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      toast.success("Successfully accepted!");
+      console.log(data);
+    })
+    .catch((err) => {
+      console.error("Error:", err);
+    });
+};
+  
+ const hendelReject = (_id) => {
+  const details = { status: "rejected" };
+   
+
+  fetch(`http://localhost:3000/accept/${_id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(details),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      toast.success("Successfully accepted!");
+      console.log(data);
+    })
+    .catch((err) => {
+      console.error("Error:", err);
+    });
+};
   
 
 
 
 
   if (loading) {
-    return <p>Loding</p>;
+    return <p>Loding.....</p>;
   }
 
   return (
@@ -322,16 +365,20 @@ console.log(orderList)
                       : "bg-red-500"
                   }`}
                 >
-                  {order.status || "pending"}
+                  {order.status}
                 </span>
               </td>
 
               {/* Actions */}
               <td className="flex justify-center gap-2">
-                <button className="btn btn-sm bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg flex items-center gap-1">
+                <button
+                onClick={()=>hendelAccept(order._id)}
+                 className="btn btn-sm bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg flex items-center gap-1">
                   Accept
                 </button>
-                <button className="btn btn-sm bg-rose-500 hover:bg-rose-600 text-white rounded-lg flex items-center gap-1">
+                <button
+                 onClick={()=>hendelReject(order._id)}
+                 className="btn btn-sm bg-rose-500 hover:bg-rose-600 text-white rounded-lg flex items-center gap-1">
                   Reject
                 </button>
               </td>
@@ -340,43 +387,8 @@ console.log(orderList)
         </tbody>
       </table>
 
-      {/* Mobile View */}
-      <div className="block sm:hidden">
-        {orderList.map((order) => (
-          <div
-            key={order._id}
-            className="border rounded-xl p-4 my-3 shadow-sm bg-gray-50"
-          >
-            <div className="flex gap-3 items-center mb-3">
-              <img
-                src={order.photoURL}
-                alt={order.food_name}
-                className="w-16 h-16 object-cover rounded-lg"
-              />
-              <div>
-                <h3 className="font-semibold">{order.food_name}</h3>
-                <p className="text-xs text-gray-500">
-                  {order.food_quantity} items
-                </p>
-              </div>
-            </div>
-            <p className="text-sm text-gray-600 mb-1">
-              <b>Donator:</b> {order.donator_name}
-            </p>
-            <p className="text-sm text-gray-600 mb-1">
-              <b>Location:</b> {order.location}
-            </p>
-            <div className="flex justify-between mt-3">
-              <button className="btn btn-xs bg-indigo-500 text-white rounded-lg">
-                Update
-              </button>
-              <button className="btn btn-xs bg-rose-500 text-white rounded-lg">
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+     
+     
     </div>: <></>
         }
       </div>

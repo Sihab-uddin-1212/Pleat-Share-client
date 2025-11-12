@@ -82,7 +82,7 @@ const AddFood = () => {
             <label className="label font-medium">Quantity</label>
              
                 <input
-              type="text"
+              type="number"
               name="quantity"
               required
               className="input w-full rounded-full focus:border-0 focus:outline-gray-200"
