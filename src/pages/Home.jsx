@@ -41,7 +41,7 @@ const Home = () => {
     <div className="absolute -bottom-3 w-28 h-1 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 rounded-full shadow-md"></div>
   </div>
 </section>
-     {loading===foods?<Loader></Loader> :   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 p-6">
+     {loading===foods?<Loader></Loader> :   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 p-6 lg:max-w-10/12 mx-auto">
         {foods?.map((food) => (
           <FoodCard key={food._id} food={food}></FoodCard>
         ))}

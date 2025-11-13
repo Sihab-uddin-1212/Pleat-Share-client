@@ -35,7 +35,7 @@ const steps = [
 const Process = () => {
     return (
       <div>
-         <section className="relative py-20 px-6 md:px-16 bg-gradient-to-b from-purple-50 via-pink-50 to-white text-gray-800">
+         <section className="relative py-20 px-6 md:px-16 bg-gradient-to-b from-purple-50 via-pink-50 to-white text-gray-800 lg:max-w-10/12 mx-auto">
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900">
           How It <span className="text-purple-600">Works</span> 🍴
