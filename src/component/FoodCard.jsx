@@ -10,7 +10,7 @@ const FoodCard = ({food}) => {
      <motion.div
       whileHover={{ y: -8, scale: 1.02 }}
       transition={{ type: "spring", stiffness: 200, damping: 15 }}
-      className="w-full bg-gradient-to-br from-purple-900 via-indigo-900 to-black rounded-2xl overflow-hidden shadow-lg hover:shadow-purple-700/30 border border-white/10 text-white"
+      className="w-full m-4  bg-gradient-to-br from-purple-900 via-indigo-900 to-black rounded-2xl overflow-hidden shadow-lg hover:shadow-purple-700/30 border border-white/10 text-white"
     >
       {/* Image */}
       <figure className="h-52 sm:h-48 w-full  overflow-hidden relative">

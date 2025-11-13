@@ -37,7 +37,7 @@ const AllFood = () => {
             </h2>
             <div className="mt-3 w-24 h-1 rounded-full bg-gradient-to-r from-amber-400 via-pink-400 to-purple-400 opacity-70"></div>
           </div>
-          <div className="grid grid-cols-3 lg:grid-cols-4 gap-3 mt-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-10 max-w-10/12 mx-auto">
             {foods?.map((food) => (
               <FoodCard key={food._id} food={food}></FoodCard>
             ))}

@@ -25,6 +25,7 @@ const AddFood = () => {
       email: user.email,
       donator_name: user.displayName,
       donator_image: user.photoURL,
+      commit:e.target.commit.value
     };
     console.log(formData)
 
@@ -98,13 +99,18 @@ const AddFood = () => {
                 className="input w-full rounded-full bg-white/10   placeholder-gray-300 focus:outline-none border border-gray-400/30 px-4 py-2 cursor-pointer"
                 placeholderText="Select expire date"
               />
-              {/* <textarea
-              name="date"
+            
+            </div>
+             <div>
+              <label className="label font-medium">your Thought</label>
+               <textarea
+               type="text"
+              name="commit"
               required
               
              className="textarea w-full rounded-2xl focus:border-0 focus:outline-gray-200  "
-              placeholder="expire_date"
-            ></textarea> */}
+              placeholder="your Thought"
+            ></textarea>
             </div>
 
             {/* Thumbnail URL */}

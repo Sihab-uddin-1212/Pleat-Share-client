@@ -194,6 +194,9 @@ const FoodDetails = () => {
                 </div>
               </div>
             </div>
+            <div>
+               {food.commit}
+            </div>
 
             {/* Request Button */}
 
@@ -271,11 +274,7 @@ const FoodDetails = () => {
                       </button>
                     </div>
                   </form>
-                  <div className="modal-action">
-                    <form method="dialog">
-                      {/* if there is a button in form, it will close the modal */}
-                    </form>
-                  </div>
+                  
                 </div>
               </dialog>
             </div>
@@ -305,11 +304,9 @@ const FoodDetails = () => {
                   <tr
                     key={order._id}
                     className="hover:bg-purple-50 transition duration-200"
-                  >
-                    {/* Index */}
+                  > 
                     <td>{index + 1}</td>
-
-                    {/* Food info */}
+ 
                     <td>
                       <div className="flex items-center gap-3">
                         <div className="avatar">
@@ -329,8 +326,7 @@ const FoodDetails = () => {
                         </div>
                       </div>
                     </td>
-
-                    {/* Donator info */}
+ 
                     <td>
                       <div className="flex items-center gap-3">
                         <div className="avatar">
@@ -352,8 +348,7 @@ const FoodDetails = () => {
                         </div>
                       </div>
                     </td>
-
-                    {/* Requester info */}
+ 
                     <td>
                       <div>
                         <p className="font-semibold text-gray-800">
@@ -365,28 +360,24 @@ const FoodDetails = () => {
                       </div>
                     </td>
 
-                    {/* Location */}
+                 
                     <td className="text-gray-700">{order.location}</td>
-
-                    {/* Contact info */}
+ 
                     <td className="text-gray-700">{order.contract_Info}</td>
-
-                    {/* Reason */}
+ 
                     <td
                       className="text-gray-600 max-w-[180px] truncate"
                       title={order.reason}
                     >
                       {order.reason}
                     </td>
-
-                    {/* Date */}
+ 
                     <td className="text-gray-600">
                       {new Date().toLocaleDateString("en-BD", {
                         dateStyle: "medium",
                       })}
                     </td>
-
-                    {/* Status */}
+ 
                     <td>
                       <span
                         className={`badge px-3 py-2 text-white capitalize ${
@@ -400,8 +391,7 @@ const FoodDetails = () => {
                         {order.status}
                       </span>
                     </td>
-
-                    {/* Actions */}
+ 
                     <td className="flex justify-center gap-2">
                       <button
                         onClick={() => hendelAccept(order._id)}
