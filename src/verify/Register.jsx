@@ -9,7 +9,7 @@ import { FaGoogle } from "react-icons/fa";
 
 const Register = () => {
 
-       const { createUser, updateUserProfile, signInWithGoogle } = use(AuthContext);
+       const { createUser, updateUserProfile, signInWithGoogle, setLoading } = use(AuthContext);
   const navigate = useNavigate();
 
     const location = useLocation();
@@ -38,10 +38,11 @@ const Register = () => {
 
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
         updateUserProfile(displayName, photoURL);
         navigate(from)
         toast.success("User created successfully!", { id: "create-user" });
+
       })
       .catch((e) => {
          if (e.code === "auth/email-already-in-use") {
@@ -71,15 +72,16 @@ const Register = () => {
   };
 
   const handleGoogleSignIn = () => {
-    toast.loading("Creating user...", { id: "create-user" });
+   
     signInWithGoogle()
       .then((result) => {
         toast.success("User created successfully!", { id: "create-user" });
-        console.log(result.user);
+        // console.log(result.user);
         navigate(from);
+         
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         toast.error(error.message, { id: "create-user" });
       });
   };

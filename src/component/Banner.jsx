@@ -39,28 +39,14 @@ const Banner = () => {
             </p>
 
             {/* Search bar */}
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="flex items-center bg-white/10 backdrop-blur-lg border border-white/20 rounded-full px-4 py-3 w-full shadow-lg mt-6"
-            >
-              <input
-                type="text"
-                placeholder="Search your desired food..."
-                className="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none text-lg"
-              />
-              <button className="bg-gradient-to-r from-purple-600 to-pink-500 p-3 rounded-full hover:scale-105 transition">
-                <Search className="w-6 h-6 text-white" />
-              </button>
-            </motion.div>
+          
 
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-gradient-to-r from-purple-600 to-pink-500 font-semibold px-8 py-3 rounded-full flex items-center gap-2 mx-auto md:mx-0 shadow-lg mt-8"
             >
-              Get Started <ArrowRight className="w-5 h-5" />
+              View All Foods <ArrowRight className="w-5 h-5" />
             </motion.button>
           </div>
         </Fade>

@@ -7,14 +7,14 @@ const MyRequest = () => {
     const [myRequest,setmyRequest] = useState()
     
     const email = user?.email;
-    console.log(email)
+    // console.log(email)
 
     useEffect(()=>{
         if (!email) return;
         fetch(`https://plate-share-server-ten.vercel.app/my-request?email=${email}`)
         .then(res=>res.json())
         .then(data=>{
-             console.log(data)
+            //  console.log(data)
           setmyRequest(data)
           setLoading(false)
         })

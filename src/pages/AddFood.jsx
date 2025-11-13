@@ -5,7 +5,7 @@ import { AuthContext } from '../Auth/AuthContext';
 const AddFood = () => {
 
   const { user } = use(AuthContext)
-  console.log(user)
+  // console.log(user)
 
 
   const handleSubmit = (e) => {
@@ -22,7 +22,7 @@ const AddFood = () => {
       donator_name:user.displayName,
       donator_image:user.photoURL
     }
-    console.log(formData)
+    // console.log(formData)
 
     fetch('https://plate-share-server-ten.vercel.app/foods', {
       method: "POST",
@@ -34,10 +34,10 @@ const AddFood = () => {
     .then(res => res.json())
     .then(data=> {
       toast.success("Successfully added!")
-      console.log(data)
+      // console.log(data)
     })
     .catch(err => {
-      console.log(err)
+      // console.log(err)
     })
    
 

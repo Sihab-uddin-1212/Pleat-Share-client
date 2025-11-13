@@ -4,17 +4,27 @@ import FoodCard from "../component/FoodCard";
 import Banner from "../component/Banner";
 import Process from "../component/Process";
 import { Link } from "react-router";
+import Loader from "./Loader";
+ 
 
 const Home = () => {
   const [foods, setFoods] = useState();
-  console.log(foods);
+  const {loading,setLoading} = useState(true)
+  // console.log(foods);
   useEffect(() => {
+      if (loading) {
+    return  <Loader></Loader>;
+  }
     axios(`https://plate-share-server-ten.vercel.app/latest-foods?status=${"available"}`).then(
       (data) => {
         setFoods(data.data);
       }
     );
-  }, []);
+  }, ["available"]);
+   if (loading) {
+    return  <Loader></Loader>;
+  }
+
 
   return (
     <div className="mt-20">

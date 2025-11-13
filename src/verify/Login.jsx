@@ -21,7 +21,7 @@ const Login = () => {
 
     signInUser(email, password)
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
         event.target.reset();
         navigate(location.state || "/");
       })
@@ -31,7 +31,7 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
         navigate(location.state || "/");
       })
       .catch((error) => console.error(error));

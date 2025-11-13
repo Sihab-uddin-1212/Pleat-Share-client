@@ -12,14 +12,14 @@ const MyFoods = () => {
   const [myFood, setMyFood] = useState([]);
   const [reFetch,setReFetch] = useState(false)
   const email = user?.email;
-  console.log(email);
+  // console.log(email);
 
   useEffect(() => {
     if (!email) return;
     fetch(`https://plate-share-server-ten.vercel.app/my-food?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setMyFood(data);
         setLoading(false);
 
@@ -64,7 +64,7 @@ const MyFoods = () => {
   const hendelRequest = (e, _id) => {
     e.preventDefault();
      
-    console.log(_id);
+    // console.log(_id);
     const details = {
       food_name: e.target.name.value,
       pickup_location: e.target.location.value,
@@ -72,7 +72,7 @@ const MyFoods = () => {
       food_image: e.target.food_img.value,
       expire_date: e.target.date.value,
     };
-    console.log(details);
+    // console.log(details);
 
     fetch(`https://plate-share-server-ten.vercel.app/foods/${_id}`, {
       method: "PATCH",
@@ -84,11 +84,11 @@ const MyFoods = () => {
       .then((res) => res.json())
       .then((data) => {
         toast.success("Successfully  updated!");
-        console.log(data);
+        // console.log(data);
         setReFetch(!reFetch)
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
 
     modalRef.current.close();

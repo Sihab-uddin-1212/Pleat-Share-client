@@ -6,137 +6,122 @@ import { useParams } from "react-router";
 import { motion } from "framer-motion";
 import { AuthContext } from "../Auth/AuthContext";
 import { toast } from "react-toastify";
- 
+import Loader from "./Loader";
 
 const FoodDetails = () => {
-    const {user} = use(AuthContext)
-    console.log(user)
+  const { user } = use(AuthContext);
+  // console.log(user)
   const { id } = useParams();
   const [food, setFood] = useState();
-  const [orderList,setOrderList] = useState()
+  const [orderList, setOrderList] = useState();
   const [loading, setLoading] = useState(true);
-  const [reFetch,setReFetch] = useState(false)
+  const [reFetch, setReFetch] = useState(false);
   const modalRef = useRef(null);
 
-//   console.log(food);
-// console.log(orderList)
+  //   console.log(food);
+  // console.log(orderList)
 
   useEffect(() => {
-  
-
-    axios(`https://plate-share-server-ten.vercel.app/foods/${id}`).then((data) => {
-      setFood(data?.data);
-      setLoading(false);
-    });
-  }, [id,reFetch]);
+    axios(`https://plate-share-server-ten.vercel.app/foods/${id}`).then(
+      (data) => {
+        setFood(data?.data);
+        setLoading(false);
+      }
+    );
+  }, [id, reFetch]);
 
   const hendleModalRequest = () => {
     modalRef.current.showModal();
   };
 
-  useEffect(()=>{
-    axios(`https://plate-share-server-ten.vercel.app/order-list?foodId=${id}`)
-    .then(data=>{
-      
-        
-        setOrderList(data?.data)
-        setReFetch(!reFetch)
-       
-    })
-  },[id,reFetch])
+  useEffect(() => {
+    axios(
+      `https://plate-share-server-ten.vercel.app/order-list?foodId=${id}`
+    ).then((data) => {
+      setOrderList(data?.data);
+      setReFetch(!reFetch);
+    });
+  }, [id, reFetch]);
 
- 
-
-  const hendelRequest = (e) =>{
-    e.preventDefault()
-    const details ={
-        location:e.target.location.value,
-        reason:e.target.cause.value,
-        contract_Info:e.target.Contract.value,
-        user_name:user.displayName,
-        user_email:user.email,
-        photoURL:user.photoURL,
-        foodId:food?._id,
-        donar_email:food?.email,
-        status:'pending'
-      
-    }
+  const hendelRequest = (e) => {
+    e.preventDefault();
+    const details = {
+      location: e.target.location.value,
+      reason: e.target.cause.value,
+      contract_Info: e.target.Contract.value,
+      user_name: user.displayName,
+      user_email: user.email,
+      photoURL: user.photoURL,
+      foodId: food?._id,
+      donar_email: food?.email,
+      status: "pending",
+    };
     // console.log(details)
 
-    fetch('https://plate-share-server-ten.vercel.app/order', {
-         method: "POST",
-         headers: {
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify(details)
-       })
-       .then(res => res.json())
-       .then(data=> {
-         toast.success("Successfully added!")
-         console.log(data)
-          setReFetch(!reFetch)
-       })
-       .catch(err => {
-         console.log(err)
-       })
-
-
-
- modalRef.current.close();;
-  }
-
-
-
- const hendelAccept = (_id) => {
-  const details = { status: "accepted",foodId:id };
-   
-
-  fetch(`https://plate-share-server-ten.vercel.app/accept/${_id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(details),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      toast.success("Successfully accepted!");
-      console.log(data);
-       setReFetch(!reFetch)
+    fetch("https://plate-share-server-ten.vercel.app/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(details),
     })
-    .catch((err) => {
-      console.error("Error:", err);
-    });
-};
-  
- const hendelReject = (_id) => {
-  const details = { status: "rejected" };
-   
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success("Successfully added!");
+        console.log(data);
+        setReFetch(!reFetch);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-  fetch(`https://plate-share-server-ten.vercel.app/accept/${_id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(details),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      toast.success("Successfully accepted!");
-      console.log(data);
-       setReFetch(!reFetch)
+    modalRef.current.close();
+  };
+
+  const hendelAccept = (_id) => {
+    const details = { status: "accepted", foodId: id };
+
+    fetch(`https://plate-share-server-ten.vercel.app/accept/${_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(details),
     })
-    .catch((err) => {
-      console.error("Error:", err);
-    });
-};
-  
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success("Successfully accepted!");
+        // console.log(data);
+        setReFetch(!reFetch);
+      })
+      .catch((err) => {
+        // console.error("Error:", err);
+      });
+  };
 
+  const hendelReject = (_id) => {
+    const details = { status: "rejected" };
 
-
+    fetch(`https://plate-share-server-ten.vercel.app/accept/${_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(details),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success("Successfully accepted!");
+        // console.log(data);
+        setReFetch(!reFetch);
+      })
+      .catch((err) => {
+        // console.error("Error:", err);
+      });
+  };
 
   if (loading) {
-    return <p>Loding.....</p>;
+    return <Loader></Loader>;
   }
 
   return (
@@ -211,19 +196,18 @@ const FoodDetails = () => {
             </div>
 
             {/* Request Button */}
-           
-            {/* Open the modal using document.getElementById('ID').showModal() method */}
+
             <div>
-                  <motion.button
-               onClick={hendleModalRequest}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn w-full mt-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-2xl transition-all duration-300"
-              // onClick={handleRequestFood}
-            >
-              Request Food
-            </motion.button>
-              
+              <motion.button
+                onClick={hendleModalRequest}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn w-full mt-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-2xl transition-all duration-300"
+                // onClick={handleRequestFood}
+              >
+                Request Food
+              </motion.button>
+
               <dialog
                 ref={modalRef}
                 className="modal modal-bottom sm:modal-middle"
@@ -231,174 +215,216 @@ const FoodDetails = () => {
                 <div className="modal-box">
                   {/* form  */}
                   <form onSubmit={hendelRequest}>
-                    <div>
-                      <label className="label font-medium">Location</label>
+                    <h2 className="text-3xl font-bold text-center text-transparent bg-gradient-to-r from-amber-300 via-pink-300 to-purple-400 bg-clip-text">
+                      Request Food Support
+                    </h2>
 
+                    {/* Location */}
+                    <div>
+                      <label className="label font-medium text-gray-200 mb-1">
+                        Location
+                      </label>
                       <input
                         type="text"
                         name="location"
                         required
-                        className="input w-full rounded-full focus:border-0 focus:outline-gray-200"
-                        placeholder="Location"
+                        className="input w-full rounded-full px-4 py-3 bg-white/5 border border-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 placeholder-gray-400  focus:outline-none transition-all"
+                        placeholder="Enter your location"
                       />
                     </div>
-                   
-                    {/* Description Textarea */}
+
+                    {/* Why Need Food */}
                     <div>
-                      <label className="label font-medium">Why Need Food</label>
+                      <label className="label font-medium text-gray-200 mb-1">
+                        Why Need Food
+                      </label>
                       <textarea
                         name="cause"
                         required
-                        className="textarea w-full rounded-2xl focus:border-0 focus:outline-gray-200  "
-                        placeholder="Why Need Food"
+                        rows={4}
+                        className="textarea w-full rounded-2xl px-4 py-3 bg-white/5 border border-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 placeholder-gray-400     focus:outline-none transition-all"
+                        placeholder="Tell us why you need food"
                       ></textarea>
                     </div>
-                     <div>
-                      <label className="label font-medium">Contract Number</label>
 
+                    {/* Contact Number */}
+                    <div>
+                      <label className="label font-medium text-gray-200 mb-1">
+                        Contact Number
+                      </label>
                       <input
-                        type="text"
-                        
+                        type="number"
                         name="Contract"
                         required
-                        className="input w-full rounded-full focus:border-0 focus:outline-gray-200"
-                        placeholder="Contract Number"
+                        className="input w-full rounded-full px-4 py-3 bg-white/5 border border-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 placeholder-gray-400   focus:outline-none transition-all"
+                        placeholder="Enter your contact number"
                       />
                     </div>
-                    <button className="btn">Request submit</button>
-                   
 
+                    {/* Submit Button */}
+                    <div className="text-center mt-5">
+                      <button
+                        type="submit"
+                        className="btn bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 border-none text-white font-semibold rounded-full px-8 py-3 hover:scale-105 hover:shadow-lg transition-all"
+                      >
+                        Request Submit
+                      </button>
+                    </div>
                   </form>
                   <div className="modal-action">
                     <form method="dialog">
                       {/* if there is a button in form, it will close the modal */}
-                      
                     </form>
                   </div>
-                
                 </div>
               </dialog>
             </div>
-            
           </div>
         </div>
       </motion.div>
       <div>
-        {user?.email == food?.email ?
-              <div className="overflow-x-auto bg-white rounded-2xl shadow-lg mt-6">
-      <table className="table w-full">
-        <thead className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white">
-          <tr>
-            <th>#</th>
-            <th>Food</th>
-            <th>Donator</th>
-            <th>Quantity</th>
-            <th>Pickup Location</th>
-            <th>Expire Date</th>
-            <th>Status</th>
-            <th className="text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orderList.map((order, index) => (
-            <tr
-              key={order._id}
-              className="hover:bg-purple-50 transition duration-200"
-            >
-              <td>{index + 1}</td>
+        {user?.email == food?.email ? (
+          <div className="overflow-x-auto bg-white rounded-2xl shadow-lg mt-6">
+            <table className="table w-full">
+              <thead className="bg-gradient-to-r from-purple-800 to-indigo-800 text-white">
+                <tr>
+                  <th>#</th>
+                  <th>Food</th>
+                  <th>Donator</th>
+                  <th>Requester</th>
+                  <th>Location</th>
+                  <th>Contact</th>
+                  <th>Reason</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orderList?.map((order, index) => (
+                  <tr
+                    key={order._id}
+                    className="hover:bg-purple-50 transition duration-200"
+                  >
+                    {/* Index */}
+                    <td>{index + 1}</td>
 
-              {/* Food info */}
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src={order.photoURL}
-                        alt={order.food_name}
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-semibold">{order.food_name}</div>
-                    <div className="text-xs text-gray-500">
-                      {order.food_quantity} items
-                    </div>
-                  </div>
-                </div>
-              </td>
+                    {/* Food info */}
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12">
+                            <img
+                              src={order.photoURL}
+                              alt={order.food_name}
+                              className="object-cover"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-semibold">{order.food_name}</div>
+                          <div className="text-xs text-gray-500">
+                            {order.food_quantity} items
+                          </div>
+                        </div>
+                      </div>
+                    </td>
 
-              {/* Donator */}
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-circle w-10 h-10">
-                      <img
-                        src={order.donator_image}
-                        alt={order.donator_name}
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-700">
-                      {order.donator_name}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {order.donar_email}
-                    </p>
-                  </div>
-                </div>
-              </td>
+                    {/* Donator info */}
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-circle w-10 h-10">
+                            <img
+                              src={order.donator_image}
+                              alt={order.donator_name}
+                              className="object-cover"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-700">
+                            {order.donator_name}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            {order.donar_email}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
 
-              <td className="text-gray-700">{order.food_quantity}</td>
-              <td className="text-gray-700">{order.location}</td>
+                    {/* Requester info */}
+                    <td>
+                      <div>
+                        <p className="font-semibold text-gray-800">
+                          {order.user_name}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {order.user_email}
+                        </p>
+                      </div>
+                    </td>
 
-              <td className="text-gray-600">
-                {new Date().toLocaleDateString("en-BD", {
-                  dateStyle: "medium",
-                })}
-              </td>
+                    {/* Location */}
+                    <td className="text-gray-700">{order.location}</td>
 
-              <td>
-                <span
-                  className={`badge px-3 py-2 text-white ${
-                    order.status === "available"
-                      ? "bg-green-500"
-                      : order.status === "pending"
-                      ? "bg-yellow-500"
-                      : "bg-red-500"
-                  }`}
-                >
-                  {order.status}
-                </span>
-              </td>
+                    {/* Contact info */}
+                    <td className="text-gray-700">{order.contract_Info}</td>
 
-              {/* Actions */}
-              <td className="flex justify-center gap-2">
-                <button
-                onClick={()=>hendelAccept(order._id)}
-                 className="btn btn-sm bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg flex items-center gap-1">
-                  Accept
-                </button>
-                <button
-                 onClick={()=>hendelReject(order._id)}
-                 className="btn btn-sm bg-rose-500 hover:bg-rose-600 text-white rounded-lg flex items-center gap-1">
-                  Reject
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                    {/* Reason */}
+                    <td
+                      className="text-gray-600 max-w-[180px] truncate"
+                      title={order.reason}
+                    >
+                      {order.reason}
+                    </td>
 
-     
-     
-    </div>: <></>
-        }
+                    {/* Date */}
+                    <td className="text-gray-600">
+                      {new Date().toLocaleDateString("en-BD", {
+                        dateStyle: "medium",
+                      })}
+                    </td>
+
+                    {/* Status */}
+                    <td>
+                      <span
+                        className={`badge px-3 py-2 text-white capitalize ${
+                          order.status == "Accepted"
+                            ? "bg-green-500"
+                            : order.status == "pending"
+                            ? "bg-yellow-500"
+                            : "bg-red-500"
+                        }`}
+                      >
+                        {order.status}
+                      </span>
+                    </td>
+
+                    {/* Actions */}
+                    <td className="flex justify-center gap-2">
+                      <button
+                        onClick={() => hendelAccept(order._id)}
+                        className="btn btn-sm bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg flex items-center gap-1"
+                      >
+                        Accept
+                      </button>
+                      <button
+                        onClick={() => hendelReject(order._id)}
+                        className="btn btn-sm bg-rose-500 hover:bg-rose-600 text-white rounded-lg flex items-center gap-1"
+                      >
+                        Reject
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
-       
-      
     </div>
   );
 };
