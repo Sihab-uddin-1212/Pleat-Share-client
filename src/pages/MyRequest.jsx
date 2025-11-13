@@ -11,7 +11,7 @@ const MyRequest = () => {
 
     useEffect(()=>{
         if (!email) return;
-        fetch(`http://localhost:3000/my-request?email=${email}`)
+        fetch(`https://plate-share-server-ten.vercel.app/my-request?email=${email}`)
         .then(res=>res.json())
         .then(data=>{
              console.log(data)

@@ -34,7 +34,8 @@ const steps = [
 
 const Process = () => {
     return (
-  <section className="relative py-20 px-6 md:px-16 bg-gradient-to-b from-purple-50 via-pink-50 to-white text-gray-800">
+      <div>
+         <section className="relative py-20 px-6 md:px-16 bg-gradient-to-b from-purple-50 via-pink-50 to-white text-gray-800">
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900">
           How It <span className="text-purple-600">Works</span> 🍴
@@ -85,7 +86,41 @@ const Process = () => {
           </motion.div>
         ))}
       </div>
+
     </section>
+
+  <section className="bg-gradient-to-br from-purple-900 via-indigo-900 to-black text-white py-20 px-6 md:px-16 text-center">
+  
+  <div className="max-w-3xl mx-auto">
+    <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-pink-300 via-purple-300 to-cyan-300 text-transparent bg-clip-text mb-6">
+      Our Mission
+    </h2>
+    <p className="text-gray-300 text-lg leading-relaxed">
+      We believe that food has the power to bring hope and kindness. Our mission is to build a community where every meal shared means less hunger, less waste, and more love for one another.
+    </p>
+  </div>
+
+  
+  <div className="mt-12 flex flex-col md:flex-row justify-center gap-8">
+    <div className="p-6 rounded-2xl bg-white/10 backdrop-blur-md shadow-md hover:bg-white/20 transition w-64">
+      <h3 className="text-4xl md:text-5xl font-bold text-cyan-400 mb-2">12K+</h3>
+      <p className="text-gray-300">People Helped</p>
+    </div>
+    <div className="p-6 rounded-2xl bg-white/10 backdrop-blur-md shadow-md hover:bg-white/20 transition w-64">
+      <h3 className="text-4xl md:text-5xl font-bold text-pink-300 mb-2">50K+</h3>
+      <p className="text-gray-300">Meals Shared</p>
+    </div>
+    <div className="p-6 rounded-2xl bg-white/10 backdrop-blur-md shadow-md hover:bg-white/20 transition w-64">
+      <h3 className="text-4xl md:text-5xl font-bold text-purple-300 mb-2">8K+</h3>
+      <p className="text-gray-300">Food Saved</p>
+    </div>
+  </div>
+</section>
+
+
+
+      </div>
+ 
     );
 };
 

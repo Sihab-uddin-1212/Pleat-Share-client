@@ -24,7 +24,7 @@ const FoodDetails = () => {
   useEffect(() => {
   
 
-    axios(`http://localhost:3000/foods/${id}`).then((data) => {
+    axios(`https://plate-share-server-ten.vercel.app/foods/${id}`).then((data) => {
       setFood(data?.data);
       setLoading(false);
     });
@@ -35,7 +35,7 @@ const FoodDetails = () => {
   };
 
   useEffect(()=>{
-    axios(`http://localhost:3000/order-list?foodId=${id}`)
+    axios(`https://plate-share-server-ten.vercel.app/order-list?foodId=${id}`)
     .then(data=>{
       
         
@@ -63,7 +63,7 @@ const FoodDetails = () => {
     }
     // console.log(details)
 
-    fetch('http://localhost:3000/order', {
+    fetch('https://plate-share-server-ten.vercel.app/order', {
          method: "POST",
          headers: {
            "Content-Type": "application/json",
@@ -91,7 +91,7 @@ const FoodDetails = () => {
   const details = { status: "accepted",foodId:id };
    
 
-  fetch(`http://localhost:3000/accept/${_id}`, {
+  fetch(`https://plate-share-server-ten.vercel.app/accept/${_id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -113,7 +113,7 @@ const FoodDetails = () => {
   const details = { status: "rejected" };
    
 
-  fetch(`http://localhost:3000/accept/${_id}`, {
+  fetch(`https://plate-share-server-ten.vercel.app/accept/${_id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

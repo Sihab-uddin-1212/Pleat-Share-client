@@ -2,12 +2,13 @@ import { use } from "react";
  
 import { Navigate } from "react-router";
 import { AuthContext } from "../Auth/AuthContext";
+import { Loader } from "lucide-react";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = use(AuthContext);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return  <Loader></Loader>
   }
 
   if (!user) {

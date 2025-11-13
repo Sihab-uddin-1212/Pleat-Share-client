@@ -16,7 +16,7 @@ const MyFoods = () => {
 
   useEffect(() => {
     if (!email) return;
-    fetch(`http://localhost:3000/my-food?email=${email}`)
+    fetch(`https://plate-share-server-ten.vercel.app/my-food?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -37,7 +37,7 @@ const MyFoods = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/foods/${_id}`, {
+        fetch(`https://plate-share-server-ten.vercel.app/foods/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -74,7 +74,7 @@ const MyFoods = () => {
     };
     console.log(details);
 
-    fetch(`http://localhost:3000/foods/${_id}`, {
+    fetch(`https://plate-share-server-ten.vercel.app/foods/${_id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

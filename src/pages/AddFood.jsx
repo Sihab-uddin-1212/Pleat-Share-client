@@ -24,7 +24,7 @@ const AddFood = () => {
     }
     console.log(formData)
 
-    fetch('http://localhost:3000/foods', {
+    fetch('https://plate-share-server-ten.vercel.app/foods', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

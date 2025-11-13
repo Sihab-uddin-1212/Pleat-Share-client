@@ -4,10 +4,10 @@ const Loader = () => {
      const letters = "Generating".split("");
     return (
         <div>
-                <div className="relative flex items-center justify-center w-44 h-44 rounded-full text-white font-light text-lg select-none">
+                <div className=="relative flex items-center justify-center w-44 h-44 rounded-full text-white font-light text-lg select-none">
       {/* Rotating ring */}
       <div
-        className="absolute inset-0 rounded-full animate-[spin_2s_linear_infinite]"
+        className=="absolute inset-0 rounded-full animate-[spin_2s_linear_infinite]"
         style={{
           boxShadow:
             "0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset",
@@ -18,7 +18,7 @@ const Loader = () => {
       {letters.map((char, i) => (
         <span
           key={i}
-          className="inline-block opacity-40"
+          className=="inline-block opacity-40"
           style={{
             animation: "letter 2s infinite",
             animationDelay: `${i * 0.1}s`,
