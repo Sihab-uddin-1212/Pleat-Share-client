@@ -47,12 +47,20 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-gradient-to-br from-purple-800 via-indigo-800 to-gray-900 rounded-box mt-3 w-52 p-2 shadow-lg border border-white/10"
             >
               <li>
-                <NavLink to="/" className="hover:text-amber-300 flex items-center gap-2">
+                <NavLink to="/" className={({ isActive }) =>
+                    `flex items-center gap-1 transition-all ${
+                      isActive ? "text-amber-300" : "hover:text-amber-300 text-white"
+                    }`
+                  }>
                   <GoHomeFill /> Home
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/all-foods" className="hover:text-amber-300 flex items-center gap-2">
+                <NavLink to="/all-foods" className={({ isActive }) =>
+                    `flex items-center gap-1 transition-all ${
+                      isActive ? "text-amber-300" : "hover:text-amber-300 text-white"
+                    }`
+                  }  >
                   <IoLogoModelS /> Available Foods
                 </NavLink>
               </li>
