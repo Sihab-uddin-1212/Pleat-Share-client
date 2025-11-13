@@ -4,6 +4,7 @@ import { FaDAndD } from "react-icons/fa";
 import { ArrowRight, Search, Star } from "lucide-react";
 import Marquee from 'react-fast-marquee';
 import { Fade } from "react-awesome-reveal";
+import { Link } from "react-router";
  
 
 const Banner = () => {
@@ -40,14 +41,16 @@ const Banner = () => {
 
             {/* Search bar */}
           
-
-            <motion.button
+               <Link to={'/all-foods'}>
+               <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-gradient-to-r from-purple-600 to-pink-500 font-semibold px-8 py-3 rounded-full flex items-center gap-2 mx-auto md:mx-0 shadow-lg mt-8"
             >
+             
               View All Foods <ArrowRight className="w-5 h-5" />
-            </motion.button>
+            </motion.button></Link>
+            
           </div>
         </Fade>
 

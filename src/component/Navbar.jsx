@@ -60,7 +60,7 @@ const Navbar = () => {
           </div>
 
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 text-2xl font-bold text-white ">
+          <Link to="/" className="flex items-center gap-2 text-xl lg:text-2xl  font-bold text-white ">
             <img src={logo} className="w-9 rounded-full" alt="Logo" />
             PlateShare
           </Link>

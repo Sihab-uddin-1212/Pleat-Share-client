@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const AddFood = () => {
   const [expireDate, setExpireDate] = useState(new Date());
-  console.log(expireDate)
+  // console.log(expireDate)
 
   const { user } = use(AuthContext);
 
