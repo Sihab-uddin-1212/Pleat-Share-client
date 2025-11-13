@@ -3,6 +3,8 @@ import { AuthContext } from "../Auth/AuthContext";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
+ 
 
 const MyFoods = () => {
   const { user } = use(AuthContext);
@@ -95,7 +97,7 @@ const MyFoods = () => {
   };
 
   if (loading) {
-    return <p>loading........</p>;
+    return<Loader></Loader>   ;
   }
 
   return (

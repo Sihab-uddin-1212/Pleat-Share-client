@@ -3,7 +3,7 @@ import React from 'react';
 const Loader = () => {
      const letters = "Generating".split("");
     return (
-        <div>
+        <div className='flex justify-center items-center'>
                 <div className="relative flex items-center justify-center w-44 h-44 rounded-full text-white font-light text-lg select-none">
       {/* Rotating ring */}
       <div
@@ -38,7 +38,8 @@ const Loader = () => {
       `}</style>
     </div>
         </div>
+        
     );
 };
-
+ 
 export default Loader;

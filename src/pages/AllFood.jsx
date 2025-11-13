@@ -24,7 +24,7 @@ const AllFood = () => {
 
   return (
     <div>
-      {loading ? (
+      {loading===foods ? (
         <Loader></Loader>
       ) : (
         <div>
