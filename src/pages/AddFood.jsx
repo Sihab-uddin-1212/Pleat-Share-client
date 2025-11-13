@@ -83,6 +83,7 @@ const AddFood = () => {
              
                 <input
               type="number"
+              min="1"
               name="quantity"
               required
               className="input w-full rounded-full focus:border-0 focus:outline-gray-200"

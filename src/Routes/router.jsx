@@ -10,6 +10,7 @@ import AddFood from '../pages/AddFood';
 import MyFoods from '../pages/MyFoods';
 import PrivateRoute from './PrivetRoute';
 import MyRequest from '../pages/MyRequest';
+import Error from '../pages/Error';
  
  const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ import MyRequest from '../pages/MyRequest';
         {
             path:'/my-request',
             element:<PrivateRoute><MyRequest></MyRequest></PrivateRoute>
+        },
+        {
+            path:'*',
+            element:<Error></Error>
         }
     ]
   },

@@ -15,6 +15,7 @@ const FoodDetails = () => {
   const [food, setFood] = useState();
   const [orderList,setOrderList] = useState()
   const [loading, setLoading] = useState(true);
+  const [reFetch,setReFetch] = useState(false)
   const modalRef = useRef(null);
 
 //   console.log(food);
@@ -27,7 +28,7 @@ const FoodDetails = () => {
       setFood(data?.data);
       setLoading(false);
     });
-  }, [id]);
+  }, [id,reFetch]);
 
   const hendleModalRequest = () => {
     modalRef.current.showModal();
@@ -37,11 +38,12 @@ const FoodDetails = () => {
     axios(`http://localhost:3000/order-list?foodId=${id}`)
     .then(data=>{
       
-        // const userEmailData = data?.data.filter(list =>list.donar_email !== user?.email )
+        
         setOrderList(data?.data)
-        // console.log(userEmailData)
+        setReFetch(!reFetch)
+       
     })
-  },[])
+  },[id,reFetch])
 
  
 
@@ -72,6 +74,7 @@ const FoodDetails = () => {
        .then(data=> {
          toast.success("Successfully added!")
          console.log(data)
+          setReFetch(!reFetch)
        })
        .catch(err => {
          console.log(err)
@@ -99,6 +102,7 @@ const FoodDetails = () => {
     .then((data) => {
       toast.success("Successfully accepted!");
       console.log(data);
+       setReFetch(!reFetch)
     })
     .catch((err) => {
       console.error("Error:", err);
@@ -120,6 +124,7 @@ const FoodDetails = () => {
     .then((data) => {
       toast.success("Successfully accepted!");
       console.log(data);
+       setReFetch(!reFetch)
     })
     .catch((err) => {
       console.error("Error:", err);

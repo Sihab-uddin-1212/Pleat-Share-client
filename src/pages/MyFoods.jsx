@@ -10,6 +10,7 @@ const MyFoods = () => {
 
   const [loading, setLoading] = useState(true);
   const [myFood, setMyFood] = useState([]);
+  const [reFetch,setReFetch] = useState(false)
   const email = user?.email;
   console.log(email);
 
@@ -21,8 +22,9 @@ const MyFoods = () => {
         console.log(data);
         setMyFood(data);
         setLoading(false);
+
       });
-  }, [email]);
+  }, [email,reFetch]);
 
   const handleDeleteFood = (_id) => {
     Swal.fire({
@@ -61,7 +63,7 @@ const MyFoods = () => {
 
   const hendelRequest = (e, _id) => {
     e.preventDefault();
-
+     
     console.log(_id);
     const details = {
       food_name: e.target.name.value,
@@ -83,6 +85,7 @@ const MyFoods = () => {
       .then((data) => {
         toast.success("Successfully  updated!");
         console.log(data);
+        setReFetch(!reFetch)
       })
       .catch((err) => {
         console.log(err);
@@ -204,15 +207,7 @@ const MyFoods = () => {
                   >
                     Update
                   </button>
-                  {/* <motion.button
-            //    onClick={hendleModalRequest}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn w-full mt-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-2xl transition-all duration-300"
-             
-            >
-              Request Food
-            </motion.button> */}
+               
 
                   <dialog
                     ref={modalRef}
@@ -265,7 +260,8 @@ const MyFoods = () => {
                                 </label>
 
                                 <input
-                                  type="text"
+                                   type="number"
+                                   min="1"
                                   name="quantity"
                                   required
                                   defaultValue={food.food_quantity}

@@ -9,7 +9,7 @@ const steps = [
     description:
       "Login to your account, click your profile icon on the top-right navbar, and select “Add Food” to share surplus meals with the community.",
     image:
-      "https://cdn.pixabay.com/photo/2017/06/06/09/53/food-2378726_1280.jpg",
+      "https://i.ibb.co.com/zWHKTmP7/download.webp",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const steps = [
     description:
       "Go to the Find Food section, use the search bar to explore meals you desire, and view their details instantly.",
     image:
-      "https://cdn.pixabay.com/photo/2016/11/29/02/30/food-1869598_1280.jpg",
+      "https://i.ibb.co.com/jZxKD8CX/OIP.webp",
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ const steps = [
     description:
       "Open the food details page, click “Request Food,” and once approved, collect it from the donor’s shared location.",
     image:
-      "https://cdn.pixabay.com/photo/2019/05/09/21/04/donation-4190812_1280.jpg",
+      "https://i.ibb.co.com/k25zq0Qn/OIP-1.webp",
   },
 ];
  

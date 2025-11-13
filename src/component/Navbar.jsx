@@ -70,27 +70,7 @@ const Navbar = () => {
           </li>
            
 
-          {/* <Link
-            to={"/login"}
-            className="btn rounded-full border-gray-300  btn-sm bg-linear-to-r from-pink-500 to-red-500 text-white"
-          >
-            {" "}
-            <IoLogIn /> Login
-          </Link>
-          <Link
-            to={"/register"}
-            className="btn rounded-full border-gray-300  btn-sm bg-linear-to-r from-pink-500 to-red-500 text-white"
-          >
-            {" "}
-            <IoLogIn /> Register
-          </Link> */}
-
-
-          {/* <li>
-            <NavLink to={"/profile"}>
-              <FaUser /> Profile
-            </NavLink>
-          </li> */}
+         
         </ul>
       </div>
       <div className="navbar-end gap-3">
